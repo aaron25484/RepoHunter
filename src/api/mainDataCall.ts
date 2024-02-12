@@ -1,4 +1,3 @@
-
 const TOKEN = import.meta.env.VITE_GIT_TOKEN;
 
 export const getMainData = async (selectedUser: string) => {
@@ -48,8 +47,9 @@ export const getMainData = async (selectedUser: string) => {
     }
 
     const userDetails = userData.data.user;
+    const repositories = userDetails.repositories.nodes;
 
-    return { userDetails, selectedUser };
+    return { userDetails, repositories };
   } catch (error) {
     console.error('Error requesting user data:', error);
     throw error;
