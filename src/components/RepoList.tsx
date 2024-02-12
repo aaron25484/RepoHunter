@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Repository } from '../utils/interfaces';
 import RepoCard from './RepoCard';
+import { useTranslation } from 'react-i18next';
 
 interface RepoListProps {
   repos: Repository[];
@@ -11,6 +12,7 @@ interface RepoListProps {
 
 const RepoList: React.FC<RepoListProps> = ({ repos, selectedUser, selectedLanguage, setSelectedLanguage }) => {
   const [filteredRepos, setFilteredRepos] = useState<Repository[]>([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const filteredRepos = selectedLanguage
@@ -24,8 +26,8 @@ const RepoList: React.FC<RepoListProps> = ({ repos, selectedUser, selectedLangua
     <>
       {selectedUser && (
         <div>
-          <h2>Repositories of {selectedUser}</h2>
-          <label htmlFor="language">Filter by Language:</label>
+          <h2>{t('Repositories of')} {selectedUser}</h2>
+          <label htmlFor="language">{t('Filter by Language')}:</label>
           <select
             id="language"
             onChange={(e) => setSelectedLanguage(e.target.value)}

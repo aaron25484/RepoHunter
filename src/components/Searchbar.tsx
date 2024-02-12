@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { searchUsers } from '../api/userSuggestionsCall';
+import { useTranslation } from 'react-i18next';
 
 interface User {
   login: string;
@@ -13,6 +14,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onUserSelected }) => {
   const [query, setQuery] = useState('');
   const [suggestedUsers, setSuggestedUsers] = useState<User[]>([]);
   const [menuVisible, setMenuVisible] = useState(false);
+  const {t} = useTranslation()
 
   useEffect(() => {
     if (query.length >= 3) {
@@ -37,7 +39,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onUserSelected }) => {
     <div>
       <input
         type="text"
-        placeholder="Search GitHub user..."
+        placeholder={t("Search GitHub user...")}
         value={query}
         onChange={e => setQuery(e.target.value)}
       />
