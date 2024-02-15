@@ -36,19 +36,28 @@ const SearchBar: React.FC<SearchBarProps> = ({ onUserSelected }) => {
   };
 
   return (
-    <div>
+    <div className="relative bg-gray-800 p-4">
       <input
         type="text"
         placeholder={t("Search GitHub user...")}
         value={query}
         onChange={e => setQuery(e.target.value)}
+        className="px-4 py-2 border rounded w-full"
       />
       {menuVisible && suggestedUsers.length > 0 && (
-        <ul className='list-none'>
+        <ul className="absolute left-0 mt-2 w-full bg-white border border-gray-300 rounded">
           {suggestedUsers.map(user => (
-            <li key={user.login} onClick={() => handleUserClick(user.login)}>
-              <img src={user.avatarUrl} alt={`${user.login}'s avatar`} />
-              {user.login}
+            <li
+              key={user.login}
+              onClick={() => handleUserClick(user.login)}
+              className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
+            >
+              <img
+                src={user.avatarUrl}
+                alt={`${user.login}'s avatar`}
+                className="rounded-full h-8 w-8"
+              />
+              <span className="ml-2">{user.login}</span>
             </li>
           ))}
         </ul>

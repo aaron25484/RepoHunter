@@ -60,19 +60,20 @@ const RepoList: React.FC<RepoListProps> = ({ repos, selectedUser, selectedLangua
   return (
     <>
       {selectedUser && (
-        <div>
-          <h2>{t('Repositories of')} {selectedUser}</h2>
-          <label htmlFor="language">{t('Filter by Language')}:</label>
-          <select
-            id="language"
-            onChange={(e) => setSelectedLanguage(e.target.value)}
-            value={selectedLanguage}
-          >
-            <option value="">All Languages</option>
-            <option value="JavaScript">JavaScript</option>
-            <option value="TypeScript">TypeScript</option>
-            <option value="Python">Python</option>
-          </select>
+        <div className="p-4 bg-gray-800">
+        <h2 className="text-white text-2xl mb-4">{t('Repositories of')} {selectedUser}</h2>
+        <label htmlFor="language" className="text-white block mb-2">{t('Filter by Language')}:</label>
+        <select
+          id="language"
+          onChange={(e) => setSelectedLanguage(e.target.value)}
+          value={selectedLanguage}
+          className="px-4 mb-4 py-2 border rounded w-full bg-white text-gray-800"
+        >
+          <option value="">{t('All Languages')}</option>
+          <option value="JavaScript">JavaScript</option>
+          <option value="TypeScript">TypeScript</option>
+          <option value="Python">Python</option>
+        </select>
           {filteredRepos.map((repo: Repository) => (
             <RepoCard key={repo.name} repo={repo} onFavoriteToggle={() => handleFavoriteToggle(repo.name)} />
           ))}
