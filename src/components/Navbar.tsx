@@ -1,19 +1,23 @@
-// Navbar.tsx
-
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import LanguageSelector from './LanguageSelector';
 
 const Navbar: React.FC = () => {
+  const {t} = useTranslation();
   return (
-    <nav>
-      <h1 className='text-2xl font-oswald'>RepoHunter</h1>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-          <Link to="/favorites">Favorites</Link>
+    <nav className="flex items-center justify-between bg-gray-800 p-4">
+  <Link to="/" className='text-2xl font-oswald text-white'>RepoHunter</Link>
+  <ul className="flex items-center ">
+    <li>
+      <Link to="/favorites" className="text-white">{t("Favorites")}</Link>
+    </li>
+    <li className="ml-4">
+          <LanguageSelector />
         </li>
-      </ul>
-    </nav>
+  </ul>
+</nav>
+
   );
 };
 
