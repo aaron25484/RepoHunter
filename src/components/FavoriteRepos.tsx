@@ -12,7 +12,7 @@ const FavoriteRepos: React.FC<FavoriteReposProps> = ({ favoriteRepos }) => {
     <div>
       <h2>{t('Your Favorite Repositories')}</h2>
       {favoriteRepos.map((repo: Repository) => (
-        <RepoCard key={repo.name} repo={repo} />
+        <RepoCard key={repo.name} repo={repo} onFavoriteToggle={() => (repo.name)}/>
       ))}
     </div>
   );
