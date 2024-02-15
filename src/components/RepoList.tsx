@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Repository } from '../utils/interfaces';
 import RepoCard from './RepoCard';
 import { useTranslation } from 'react-i18next';
+import Cookies from 'js-cookie';
+import { getFavoritesData } from '../api/favoritesCall';
 
 interface RepoListProps {
   repos: Repository[];
@@ -12,6 +14,8 @@ interface RepoListProps {
 
 const RepoList: React.FC<RepoListProps> = ({ repos, selectedUser, selectedLanguage, setSelectedLanguage }) => {
   const [filteredRepos, setFilteredRepos] = useState<Repository[]>([]);
+  const [favorites, setFavorites] = useState<{ repoName: string; owner: string }[]>([]);
+
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -21,6 +25,37 @@ const RepoList: React.FC<RepoListProps> = ({ repos, selectedUser, selectedLangua
 
     setFilteredRepos(filteredRepos);
   }, [repos, selectedLanguage]);
+
+  useEffect(() => {
+    const storedFavorites = Cookies.get('favorites');
+    if (storedFavorites) {
+      setFavorites(JSON.parse(storedFavorites));
+    }
+  }, []);
+
+  const handleFavoriteToggle = async (repoName: string) => {
+    try {
+      const storedFavorites = Cookies.get('favorites') || '[]';
+      if (storedFavorites) {
+        const parsedFavorites = JSON.parse(storedFavorites);
+        const repo = repos.find((r) => r.name === repoName);
+
+        if (!repo) {
+          console.error('Repository not found:', repoName);
+          return;
+        }
+
+        const updatedFavorites = [...parsedFavorites, { repoName: repo.name, owner: selectedUser }];
+        setFavorites(updatedFavorites);
+
+        await getFavoritesData(updatedFavorites);
+        Cookies.set('favorites', JSON.stringify(updatedFavorites));
+
+      }
+    } catch (error) {
+      console.error('Error handling favorite toggle:', error);
+    }
+  };
 
   return (
     <>
@@ -39,7 +74,7 @@ const RepoList: React.FC<RepoListProps> = ({ repos, selectedUser, selectedLangua
             <option value="Python">Python</option>
           </select>
           {filteredRepos.map((repo: Repository) => (
-            <RepoCard key={repo.name} repo={repo} />
+            <RepoCard key={repo.name} repo={repo} onFavoriteToggle={() => handleFavoriteToggle(repo.name)} />
           ))}
         </div>
       )}
