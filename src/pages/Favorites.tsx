@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import FavoriteRepos from "../components/FavoriteRepos";
 import { getFavoritesData } from "../api/favoritesCall";
 
-const Favourites = () => {
+const Favorites = () => {
   const [favoriteRepos, setFavoriteRepos] = useState<Repository[]>([]);
 
   useEffect(() => {
@@ -31,9 +31,22 @@ const Favourites = () => {
     fetchData();
   }, []); 
 
+  const handleRemoveFavorite = async (repoName: string) => {
+    try {
+      const storedFavorites = Cookies.get('favorites') || '[]';
+      const parsedFavorites = JSON.parse(storedFavorites);
+      const updatedFavorites = parsedFavorites.filter((fav: any) => fav.repoName !== repoName);
+      Cookies.set('favorites', JSON.stringify(updatedFavorites));
+
+      setFavoriteRepos((prevRepos) => prevRepos.filter((repo) => repo.name !== repoName));
+    } catch (error) {
+      console.error('Error removing from favorites:', error);
+    }
+  };
+
   return (
-    <FavoriteRepos favoriteRepos={favoriteRepos} />
+    <FavoriteRepos favoriteRepos={favoriteRepos} onRemoveFavorite={handleRemoveFavorite} />
   );
 };
 
-export default Favourites;
+export default Favorites;

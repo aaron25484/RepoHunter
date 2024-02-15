@@ -10,9 +10,10 @@ interface RepoListProps {
   selectedUser: string | null;
   selectedLanguage: string;
   setSelectedLanguage: (language: string) => void;
+  favoriteRepos: Repository[];
 }
 
-const RepoList: React.FC<RepoListProps> = ({ repos, selectedUser, selectedLanguage, setSelectedLanguage }) => {
+const RepoList: React.FC<RepoListProps> = ({ repos, selectedUser, selectedLanguage, setSelectedLanguage, favoriteRepos }) => {
   const [filteredRepos, setFilteredRepos] = useState<Repository[]>([]);
 
   const { t } = useTranslation();
@@ -36,7 +37,16 @@ const RepoList: React.FC<RepoListProps> = ({ repos, selectedUser, selectedLangua
         return;
       }
 
-      const updatedFavorites = [...parsedFavorites, { repoName: repo.name, owner: selectedUser }];
+      const isRepoInFavorites = parsedFavorites.some((fav: any) => fav.repoName === repoName);
+
+      let updatedFavorites;
+
+      if (isRepoInFavorites) {
+        updatedFavorites = parsedFavorites.filter((fav: any) => fav.repoName !== repoName);
+      } else {
+        updatedFavorites = [...parsedFavorites, { repoName: repo.name, owner: selectedUser }];
+      }
+
       await getFavoritesData(updatedFavorites);
       Cookies.set('favorites', JSON.stringify(updatedFavorites));
     } catch (error) {
@@ -61,8 +71,14 @@ const RepoList: React.FC<RepoListProps> = ({ repos, selectedUser, selectedLangua
             <option value="TypeScript">TypeScript</option>
             <option value="Python">Python</option>
           </select>
-          {filteredRepos.map((repo: Repository) => (
-            <RepoCard key={repo.name} repo={repo} onFavoriteToggle={() => handleFavoriteToggle(repo.name)} />
+          {filteredRepos && filteredRepos.map((repo: Repository) => (
+            <RepoCard
+            key={repo.name}
+            repo={repo}
+            onFavoriteToggle={() => handleFavoriteToggle(repo.name)}
+            isFavorite={favoriteRepos?.some((favRepo) => favRepo.name === repo.name) || false}
+            onRemoveFavorite={() => {}}
+          />
           ))}
         </div>
       )}
