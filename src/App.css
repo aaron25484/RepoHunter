@@ -1,0 +1,5 @@
+:root {
+  background: rgb(112,113,124);
+  background: linear-gradient(0deg, rgba(112,113,124,1) 0%, rgba(31,41,55,1) 58%);
+background-attachment: fixed;
+}
