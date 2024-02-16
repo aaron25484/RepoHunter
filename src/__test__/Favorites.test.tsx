@@ -5,7 +5,6 @@ import Favorites from '../pages/Favorites';
 import Cookies from 'js-cookie';
 import * as FavoritesApi from '../api/favoritesCall';
 
-// Mocking the necessary dependencies
 jest.mock('js-cookie');
 
 jest.mock('../api/favoritesCall', () => ({
@@ -24,20 +23,15 @@ describe('Favorites Component', () => {
   ];
 
   beforeEach(() => {
-    // Reset the mock implementation for each test
     jest.resetAllMocks();
   });
 
   it('renders favorite repositories and handles removal correctly', async () => {
-    // Mocking Cookies.get to return stored favorites
     jest.spyOn(Cookies, 'get').mockReturnValueOnce(JSON.stringify([{ repoName: 'repo1' }, { repoName: 'repo2' }])as string);
 
-    // Mocking the getFavoritesData function
     jest.spyOn(FavoritesApi, 'getFavoritesData').mockResolvedValue(mockFavoritesData);
 
-    // Mocking Cookies.set
     jest.spyOn(Cookies, 'set').mockImplementation((key: string, value: string) => {
-      // Custom mock implementation, you can adjust it based on your needs
       const mockCookies: { [key: string]: string } = {};
       mockCookies[key] = value;
       Cookies['__mockCookies'] = mockCookies;
@@ -45,7 +39,6 @@ describe('Favorites Component', () => {
 
     const { getByText, getAllByRole, queryByText } = render(<Favorites />);
 
-    // Ensure that the loading state is not displayed
     await waitFor(() => {
       expect(getByText('repo1')).toBeInTheDocument();
     expect(getByText('repo2')).toBeInTheDocument();
