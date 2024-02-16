@@ -102,12 +102,12 @@ const RepoList: React.FC<RepoListProps> = ({ repos, selectedUser, selectedLangua
       {selectedUser && (
         <div className="p-4 bg-gray-800">
           <h2 className="text-white font-oswald text-center text-2xl mb-4">{t('Repositories of')} {selectedUser}</h2>
-          <label htmlFor="language" className="text-white block mb-2">{t('Filter by Language')}:</label>
+          <label htmlFor="language" className="text-white text-center block mb-2">{t('Filter by Language')}:</label>
           <select
             id="language"
             onChange={(e) => setSelectedLanguage(e.target.value)}
             value={selectedLanguage}
-            className="px-4 mb-4 py-2 border rounded w-full bg-white text-gray-800 max-w-screen-md lg:mx-auto"
+            className=" px-4 mb-4 py-2 block border m-auto rounded w-3/6 bg-white text-gray-800 lg:w-1/6"
           >
             <option value="">{t('All Languages')}</option>
             <option value="JavaScript">JavaScript</option>
