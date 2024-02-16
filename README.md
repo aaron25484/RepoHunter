@@ -13,12 +13,14 @@ Made by [Aaron de los Santos](https://github.com/aaron25484)
   - [About the Project](#about-the-project)
   - [Visit the Page](#visit-the-page)
   - [Installation and Setup](#installation-and-setup)
+  - [Running the Test Suite](#running-the-test-suite)
 
   - [Tecnologies Used](#tecnologies-used)
+  - [Future Improvements](#future-improvements)
 
 ## About the Project
 
-The main objective of this project is to reach every repository hosted in GitHub using its v4 GraphQl API. You can search for repositories from users all across the GitHub platform. Also it's possible to add to favorites the repositories that you like the most.
+The main objective of this project is to reach every repository hosted in GitHub using its v4 GraphQl API. You can search for GitHub users all across the platform and display every public repository they have on their profile. Also it's possible to add to favorites the repositories that you like the most.
 The app is available in English, Spanish and German.
 
 ## Visit the Page
@@ -59,6 +61,22 @@ Visit the app:
 
 [http://localhost:5173/](http://localhost:5173/)
 
+## Running the Test Suite
+
+Execute the following command to run the test suite:
+
+````
+pnpm test
+````
+The test suite will execute, and the results will be displayed in the terminal. You'll see information about which tests passed, failed, or encountered errors.
+
+Also, if you want to run a specific test file or focus on a particular test suite, you can use the following command:
+
+`````
+pnpm test <name-of-the-file>
+``````
+
+
 ## Tecnologies Used
 
 - [React](https://es.react.dev/)
@@ -68,5 +86,12 @@ Visit the app:
 - [Jest](https://jestjs.io/es-ES/)
 - [GraphQl](https://graphql.org/)
 
+## Future Improvements
 
-# HAVE FUN!!!
+I would like to expand the possibilities of the search engine by adding more fields of searched data, such as searching by the name of the repository, by tech stack.
+I would also like to improve the style of the application and give it a more modern touch.
+
+I would like to expand the possibilities of the search engine by adding more fields of exploration for the user, such as searching by repository name or tech stack used. Also I would like the app to be able to handle pull requests and send private messages to users
+I would also like to improve the style of the application and give it a modern touch.
+
+# Have fun with RepoHunter!!!
