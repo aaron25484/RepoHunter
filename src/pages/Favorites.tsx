@@ -1,13 +1,32 @@
-import React,{ useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Repository } from "../utils/interfaces";
 import Cookies from 'js-cookie';
 import FavoriteRepos from "../components/FavoriteRepos";
 import { getFavoritesData } from "../api/favoritesCall";
 
+/**
+ * Favorites component displaying a list of user's favorite repositories.
+ *
+ * @component
+ */
 const Favorites = () => {
+  /**
+   * State to hold the user's favorite repositories.
+   *
+   * @type {Repository[]}
+   */
   const [favoriteRepos, setFavoriteRepos] = useState<Repository[]>([]);
 
+  /**
+   * useEffect to fetch and set the user's favorite repositories.
+   */
   useEffect(() => {
+    /**
+     * Function to fetch and set the user's favorite repositories.
+     *
+     * @async
+     * @function
+     */
     const fetchData = async () => {
       try {
         const storedFavorites = Cookies.get('favorites');
@@ -28,8 +47,14 @@ const Favorites = () => {
     };
 
     fetchData();
-  }, []); 
+  }, []);
 
+  /**
+   * Function to handle the removal of a repository from favorites.
+   *
+   * @async
+   * @param {string} repoName - The name of the repository to be removed from favorites.
+   */
   const handleRemoveFavorite = async (repoName: string) => {
     try {
       const storedFavorites = Cookies.get('favorites') || '[]';
@@ -43,6 +68,10 @@ const Favorites = () => {
     }
   };
 
+  /**
+   * Render the FavoriteRepos component with the user's favorite repositories and the remove favorite handler.
+   *
+   */
   return (
     <FavoriteRepos favoriteRepos={favoriteRepos} onRemoveFavorite={handleRemoveFavorite} />
   );
