@@ -13,8 +13,10 @@ interface RepoListProps {
   favoriteRepos: Repository[];
 }
 
-const RepoList: React.FC<RepoListProps> = ({ repos, selectedUser, selectedLanguage, setSelectedLanguage, favoriteRepos }) => {
+const RepoList: React.FC<RepoListProps> = ({ repos, selectedUser, selectedLanguage, setSelectedLanguage }) => {
   const [filteredRepos, setFilteredRepos] = useState<Repository[]>([]);
+  const [favoriteRepos, setFavoriteRepos] = useState<Repository[]>([]);
+
 
   const { t } = useTranslation();
 
@@ -26,29 +28,31 @@ const RepoList: React.FC<RepoListProps> = ({ repos, selectedUser, selectedLangua
     setFilteredRepos(filteredRepos);
   }, [repos, selectedLanguage]);
 
+  const isRepoFavorite = (repoName: string) => {
+    return favoriteRepos.some((favRepo) => favRepo.name === repoName);
+  };
+
+
   const handleFavoriteToggle = async (repoName: string) => {
     try {
       const storedFavorites = Cookies.get('favorites') || '[]';
       const parsedFavorites = JSON.parse(storedFavorites);
-      const repo = repos.find((r) => r.name === repoName);
-
-      if (!repo) {
-        console.error('Repository not found:', repoName);
-        return;
-      }
-
+  
       const isRepoInFavorites = parsedFavorites.some((fav: any) => fav.repoName === repoName);
-
+  
       let updatedFavorites;
-
+  
       if (isRepoInFavorites) {
         updatedFavorites = parsedFavorites.filter((fav: any) => fav.repoName !== repoName);
       } else {
-        updatedFavorites = [...parsedFavorites, { repoName: repo.name, owner: selectedUser }];
+        updatedFavorites = [...parsedFavorites, { repoName, owner: selectedUser }];
       }
-
+  
       await getFavoritesData(updatedFavorites);
       Cookies.set('favorites', JSON.stringify(updatedFavorites));
+  
+      setFavoriteRepos(updatedFavorites.map((fav: any) => ({ name: fav.repoName })));
+  
     } catch (error) {
       console.error('Error handling favorite toggle:', error);
     }
@@ -58,13 +62,13 @@ const RepoList: React.FC<RepoListProps> = ({ repos, selectedUser, selectedLangua
     <>
       {selectedUser && (
         <div className="p-4 bg-gray-800">
-          <h2 className="text-white text-2xl mb-4">{t('Repositories of')} {selectedUser}</h2>
+          <h2 className="text-white font-oswald text-center text-2xl mb-4">{t('Repositories of')} {selectedUser}</h2>
           <label htmlFor="language" className="text-white block mb-2">{t('Filter by Language')}:</label>
           <select
             id="language"
             onChange={(e) => setSelectedLanguage(e.target.value)}
             value={selectedLanguage}
-            className="px-4 mb-4 py-2 border rounded w-full bg-white text-gray-800"
+            className="px-4 mb-4 py-2 border rounded w-full bg-white text-gray-800 max-w-screen-md lg:mx-auto"
           >
             <option value="">{t('All Languages')}</option>
             <option value="JavaScript">JavaScript</option>
@@ -76,7 +80,7 @@ const RepoList: React.FC<RepoListProps> = ({ repos, selectedUser, selectedLangua
             key={repo.name}
             repo={repo}
             onFavoriteToggle={() => handleFavoriteToggle(repo.name)}
-            isFavorite={favoriteRepos?.some((favRepo) => favRepo.name === repo.name) || false}
+            isFavorite={isRepoFavorite(repo.name)}
             onRemoveFavorite={() => {}}
           />
           ))}
