@@ -1,6 +1,7 @@
 import RepoCard from './RepoCard';
 import { Repository } from '../utils/interfaces';
 import { useTranslation } from 'react-i18next';
+import React from 'react';
 
 interface FavoriteReposProps {
   favoriteRepos: Repository[];

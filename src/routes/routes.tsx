@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import React, { Route, Routes } from "react-router-dom"
 import LandingPage from "../pages/LandingPage";
 import Favorites from "../pages/Favorites";
 import { FC } from "react";

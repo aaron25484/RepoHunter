@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 import { Repository } from '../utils/interfaces';
 import RepoCard from './RepoCard';
 import { useTranslation } from 'react-i18next';

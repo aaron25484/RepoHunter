@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React,{ useState } from "react";
 import RepoList from "../components/RepoList";
 import SearchBar from "../components/Searchbar";
 import { getMainData } from "../api/mainDataCall";
@@ -28,7 +28,7 @@ const LandingPage = () => {
       {userDetails && (
         <>
           <UserCard user={userDetails} />
-          <RepoList repos={repos} selectedUser={selectedUser} selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} />
+          <RepoList repos={repos} selectedUser={selectedUser} selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} favoriteRepos={repos}/>
         </>
       )}
     </>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React,{ useState, useEffect } from 'react';
 import { searchUsers } from '../api/userSuggestionsCall';
 import { useTranslation } from 'react-i18next';
 

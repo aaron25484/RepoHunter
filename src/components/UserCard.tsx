@@ -1,4 +1,5 @@
 import { UserDetails } from '../utils/interfaces';
+import React from 'react';
 
 const UserCard: React.FC<{ user: UserDetails }> = ({ user }) => (
 <div className="bg-gray-200 p-4 mb-4 rounded-lg flex flex-col items-center justify-center">

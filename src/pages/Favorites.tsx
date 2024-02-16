@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React,{ useEffect, useState } from "react";
 import { Repository } from "../utils/interfaces";
 import Cookies from 'js-cookie';
 import FavoriteRepos from "../components/FavoriteRepos";
@@ -21,7 +21,6 @@ const Favorites = () => {
             return repoSum;
           }, []);
           setFavoriteRepos(combinedRepos);
-          console.log(combinedRepos);
         }
       } catch (error) {
         console.error('Error fetching favorite data:', error);
