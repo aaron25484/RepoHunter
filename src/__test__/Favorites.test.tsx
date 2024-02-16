@@ -3,9 +3,11 @@ import { render, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Favorites from '../pages/Favorites';
 import Cookies from 'js-cookie';
-import * as FavoritesApi from '../api/favoritesCall';
 
-jest.mock('js-cookie');
+jest.mock('js-cookie', () => ({
+  get: jest.fn(),
+  set: jest.fn(),
+}));
 
 jest.mock('../api/favoritesCall', () => ({
   getFavoritesData: jest.fn(),
@@ -27,21 +29,15 @@ describe('Favorites Component', () => {
   });
 
   it('renders favorite repositories and handles removal correctly', async () => {
-    jest.spyOn(Cookies, 'get').mockReturnValueOnce(JSON.stringify([{ repoName: 'repo1' }, { repoName: 'repo2' }])as string);
+    jest.spyOn(require('js-cookie'), 'get').mockReturnValueOnce(JSON.stringify([{ repoName: 'repo1' }, { repoName: 'repo2' }]));
 
-    jest.spyOn(FavoritesApi, 'getFavoritesData').mockResolvedValue(mockFavoritesData);
-
-    jest.spyOn(Cookies, 'set').mockImplementation((key: string, value: string) => {
-      const mockCookies: { [key: string]: string } = {};
-      mockCookies[key] = value;
-      Cookies['__mockCookies'] = mockCookies;
-    });
+    jest.spyOn(require('../api/favoritesCall'), 'getFavoritesData').mockResolvedValue(mockFavoritesData);
 
     const { getByText, getAllByRole, queryByText } = render(<Favorites />);
 
     await waitFor(() => {
       expect(getByText('repo1')).toBeInTheDocument();
-    expect(getByText('repo2')).toBeInTheDocument();
+      expect(getByText('repo2')).toBeInTheDocument();
     });
 
     const deleteButtons = getAllByRole('button', { name: /Delete/i });
