@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Favorites from '../pages/Favorites';
+import Favorites from '../pages/FavoritesPage';
 import Cookies from 'js-cookie';
 
 jest.mock('js-cookie', () => ({

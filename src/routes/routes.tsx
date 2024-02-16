@@ -1,13 +1,14 @@
 import React, { Route, Routes } from "react-router-dom"
-import LandingPage from "../pages/LandingPage";
-import Favorites from "../pages/Favorites";
-import { FC } from "react";
+import { FC, Suspense, lazy } from "react";
+
+const LandingPage = lazy(() => import("../pages/LandingPage"))
+const FavoritesPage = lazy(() => import("../pages/FavoritesPage"))
 
 const RoutesComponent: FC = () => {
   return(
     <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/favorites" element={<Favorites />} />
+      <Route path="/" element={<Suspense fallback={<div>Loading...</div>}><LandingPage /></Suspense>} />
+      <Route path="/favorites" element={<Suspense fallback={<div>Loading...</div>}><FavoritesPage /></Suspense>} />
     </Routes>
   )
 }

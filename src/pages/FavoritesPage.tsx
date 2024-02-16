@@ -9,7 +9,7 @@ import { getFavoritesData } from "../api/favoritesCall";
  *
  * @component
  */
-const Favorites = () => {
+const FavoritesPage = () => {
   /**
    * State to hold the user's favorite repositories.
    *
@@ -77,4 +77,4 @@ const Favorites = () => {
   );
 };
 
-export default Favorites;
+export default FavoritesPage;
