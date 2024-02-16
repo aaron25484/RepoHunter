@@ -36,7 +36,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onUserSelected }) => {
   };
 
   return (
-    <div className="relative bg-gray-800 p-4">
+    <div className="flex items-center flex-col linejustify-center bg-gray-800 p-4">
       <input
         type="text"
         placeholder={t("Search GitHub user...")}

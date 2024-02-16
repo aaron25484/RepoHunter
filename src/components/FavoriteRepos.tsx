@@ -12,7 +12,7 @@ const FavoriteRepos: React.FC<FavoriteReposProps> = ({ favoriteRepos, onRemoveFa
   const {t} = useTranslation()
   return (
     <div>
-      <h2>{t('Your Favorite Repositories')}</h2>
+      <h2 className='text-2xl text-center  align-center font-oswald text-white mb-4'>{t('Your Favorite Repositories')}</h2>
       {favoriteRepos && favoriteRepos.map((repo: Repository) => (
         <RepoCard
         key={repo.name}

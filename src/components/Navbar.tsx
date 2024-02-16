@@ -7,16 +7,16 @@ const Navbar: React.FC = () => {
   const {t} = useTranslation();
   return (
     <nav className="flex items-center justify-between bg-gray-800 p-4">
-  <Link to="/" className='text-2xl font-oswald text-white'>RepoHunter</Link>
-  <ul className="flex items-center ">
-    <li>
-      <Link to="/favorites" className="text-white">{t("Favorites")}</Link>
-    </li>
-    <li className="ml-4">
+      <Link to="/" className='text-4xl font-oswald text-white'>RepoHunter</Link>
+      <ul className="flex items-center ">
+        <li>
+          <Link to="/favorites" className="text-white text-xl font-oswald">{t("Favorites")}</Link>
+        </li>
+        <li className="ml-4">
           <LanguageSelector />
         </li>
-  </ul>
-</nav>
+      </ul>
+    </nav>
 
   );
 };
