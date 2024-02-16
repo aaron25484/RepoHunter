@@ -55,7 +55,7 @@ const RepoCard: React.FC<RepoCardProps> = ({ repo, onFavoriteToggle, isFavorite,
         href={repo.url}
         target="_blank"
         rel="noopener noreferrer"
-        className=" text-teal-800 hover:underline block mb-2"
+        className=" text-slate-900 hover:underline block mb-2"
       >
         {t('Check in GitHub')}
       </a>

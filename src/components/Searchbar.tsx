@@ -89,7 +89,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onUserSelected }) => {
         className="px-4 py-2 border rounded w-2/3"
       />
       {menuVisible && suggestedUsers.length > 0 && (
-        <ul className="relative left-0 mt-2 w-2/3 bg-white border border-gray-300 rounded">
+        <ul className="relative left-0 mt-2 w-2/3 bg-white border border-gray-300 rounded" role='list'>
           {suggestedUsers.map(user => (
             <li
               key={user.login}
