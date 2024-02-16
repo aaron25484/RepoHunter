@@ -8,7 +8,6 @@ jest.mock('../api/userSuggestionsCall', () => ({
   searchUsers: jest.fn(() => new Promise(resolve => setTimeout(() => resolve([]), 0))),
 }));
 
-
 jest.mock('react-i18next', () => ({
   ...jest.requireActual('react-i18next'),
   useTranslation: () => ({ t: (key: string) => key }),
